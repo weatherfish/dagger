@@ -5,8 +5,8 @@ load("/WORKSPACE.user", "ANDROID_HOME")
 
 android_sdk_repository(
     name = "androidsdk",
-    api_level = 23,
-    build_tools_version = "24.0.3",
+    api_level = 25,
+    build_tools_version = "25.0.2",
     path = ANDROID_HOME,
 )
 

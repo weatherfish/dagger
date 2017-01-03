@@ -22,16 +22,12 @@ android:
   components:
     - tools
     - tools # Duplicated as per https://github.com/travis-ci/travis-ci/issues/6040#issuecomment-219367943
-    - build-tools-25.0.0
+    - build-tools-25.0.2
     - android-25
     - platform-tools
     - extra-android-m2repository
 
 before_install:
-  #- sudo apt-get install pkg-config zip g++ zlib1g-dev unzip
-  #- wget https://github.com/bazelbuild/bazel/releases/download/0.4.3/bazel-0.4.3-installer-linux-x86_64.sh
-  #- chmod +x bazel-0.4.3-installer-linux-x86_64.sh
-  #- ./bazel-0.4.3-installer-linux-x86_64.sh --user
   - sudo rm -f /etc/mavenrc
   - wget http://www.us.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
   - tar -zxvf apache-maven-3.1.1-bin.tar.gz
@@ -41,12 +37,10 @@ before_install:
   - mvn --version
 
 install:
-  - bazel build -- //... -//android/...
-  - mvn -B -P!standard-with-extra-repos -U install clean --fail-never --quiet -DskipTests=true -Dinvoker.skip=true
+  - bazel build //...
 
 script:
-  - bazel test -- //... -//android/...
-  - mvn -B -P!standard-with-extra-repos -U verify --fail-at-end -Dsource.skip=true -Dmaven.javadoc.skip=true
+  - bazel test //...
 
 env:
   global:
