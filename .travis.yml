@@ -24,6 +24,7 @@ android:
     - extra-android-m2repository
 
 before_install:
+  - sudo apt-get install pkg-config zip g++ zlib1g-dev unzip # Bazel's deps
   - sudo apt-get install bazel=0.4.3
   - sudo rm -f /etc/mavenrc
   - wget http://www.us.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
