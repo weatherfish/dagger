@@ -1,7 +1,8 @@
 language: android
 
 os: linux
-dist: precise
+dist: trusty
+group: edge
 sudo: required
 addons:
   apt:
@@ -10,7 +11,6 @@ addons:
         key_url: "https://storage.googleapis.com/bazel-apt/doc/apt-key.pub.gpg"
     packages:
       - oracle-java8-installer
-      - libstdc++6-4.7-dev
       - bazel=0.4.3
 
 
