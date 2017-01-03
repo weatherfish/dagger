@@ -1,5 +1,16 @@
 language: android
 
+os: linux
+dist: precise
+sudo: required
+addons:
+  apt:
+    sources:
+      - sourceline: "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8"
+        key_url: "https://storage.googleapis.com/bazel-apt/doc/apt-key.pub.gpg"
+    packages:
+      - oracle-java8-installer
+
 jdk:
   - &jdk_for_publishing oraclejdk8
 
@@ -13,6 +24,7 @@ android:
     - extra-android-m2repository
 
 before_install:
+  - sudo apt-get install bazel=0.4.3
   - sudo rm -f /etc/mavenrc
   - wget http://www.us.apache.org/dist/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
   - tar -zxvf apache-maven-3.1.1-bin.tar.gz
@@ -40,6 +52,7 @@ branches:
   only:
     - master
     - /^release.*$/
+    - bazel_test
 
 cache:
   directories:
