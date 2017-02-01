@@ -24,7 +24,6 @@ import static java.util.stream.Collectors.toList;
 import com.google.auto.common.MoreElements;
 import com.google.auto.common.MoreTypes;
 import dagger.Multibindings;
-import dagger.Provides;
 import dagger.multibindings.Multibinds;
 import dagger.releasablereferences.CanReleaseReferences;
 import dagger.releasablereferences.ForReleasableReferences;
@@ -322,8 +321,15 @@ final class ErrorMessages {
       "@%s.type cannot be used with multibinding annotations";
 
   /* BindsInstance messages. */
-  static final String BINDS_INSTANCE_NOT_IN_BUILDER =
-      "@BindsInstance must annotate a method in a component builder";
+  static final String BINDS_INSTANCE_IN_MODULE =
+      "@BindsInstance methods should not be included in @%ss. Did you mean @Binds?";
+
+  static final String BINDS_INSTANCE_IN_INVALID_COMPONENT =
+      "@BindsInstance methods should not be included in @%1$ss. "
+          + "Did you mean to put it in a @%1$s.Builder?";
+
+  static final String BINDS_INSTANCE_ONE_PARAMETER =
+      "@BindsInstance methods should have exactly one parameter for the bound type";
 
   static ComponentBuilderMessages builderMsgsFor(ComponentDescriptor.Kind kind) {
     switch(kind) {
@@ -648,9 +654,6 @@ final class ErrorMessages {
    *     through this method.
    */
   static String stripCommonTypePrefixes(String type) {
-    // Special case this enum's constants since they will be incredibly common.
-    type = type.replace(Provides.Type.class.getCanonicalName() + ".", "");
-
     // Do regex magic to remove common packages we care to shorten.
     Matcher matcher = COMMON_PACKAGE_PATTERN.matcher(type);
     StringBuilder result = new StringBuilder();

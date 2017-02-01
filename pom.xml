@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (C) 2012 Google, Inc.
-  Copyright (C) 2012 Square, Inc.
+  Copyright (C) 2012 The Dagger Authors.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -80,6 +79,12 @@
       </dependency>
       <dependency>
         <groupId>javax.inject</groupId>
+        <artifactId>javax.inject</artifactId>
+        <classifier>sources</classifier>
+        <version>1</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.inject</groupId>
         <artifactId>javax.inject-tck</artifactId>
         <version>1</version>
       </dependency>
@@ -101,7 +106,7 @@
       <dependency>
         <groupId>com.google.googlejavaformat</groupId>
         <artifactId>google-java-format</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
       </dependency>
       <dependency>
         <groupId>com.google.auto</groupId>

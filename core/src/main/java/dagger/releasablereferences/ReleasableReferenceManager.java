@@ -38,14 +38,14 @@ import javax.inject.Provider;
  * be in any one of four states at a time:
  *
  * <ul>
- * <li>In <b>uninitialized</b> state, the provider's strong reference and its {@link WeakReference}
- *     are both {@code null}.
- * <li>In <b>cleared</b> state, the provider's strong reference is {@code null}, and its {@link
- *     WeakReference}'s value is {@code null}.
- * <li>In <b>strong-reference</b> state, the provider's strong reference refers to the cached value,
- *     and its {@link WeakReference} is {@code null}.
- * <li>In <b>weak-reference</b> state, the provider's strong reference is {@code null}, and its
- *     {@link WeakReference}'s value is not {@code null}.
+ *   <li>In <b>uninitialized</b> state, the provider's strong reference and its {@link
+ *       WeakReference} are both {@code null}.
+ *   <li>In <b>cleared</b> state, the provider's strong reference is {@code null}, and its {@link
+ *       WeakReference}'s value is {@code null}.
+ *   <li>In <b>strong-reference</b> state, the provider's strong reference refers to the cached
+ *       value, and its {@link WeakReference} is {@code null}.
+ *   <li>In <b>weak-reference</b> state, the provider's strong reference is {@code null}, and its
+ *       {@link WeakReference}'s value is not {@code null}.
  * </ul>
  *
  * <p>All providers within {@link #scope()} start in <b>uninitialized</b> state.
@@ -56,14 +56,15 @@ import javax.inject.Provider;
  * <p>{@link #releaseStrongReferences()} transitions all providers within {@link #scope()} that are
  * in <b>strong-reference</b> state to <b>weak-reference</b> state.
  *
- * <p>{@link #restoreStrongReference()} transitions all providers within {@link #scope()} that are
+ * <p>{@link #restoreStrongReferences()} transitions all providers within {@link #scope()} that are
  * in <b>weak-reference</b> state to <b>strong-reference</b> state.
  *
  * <p>If garbage collection clears the {@link WeakReference} for any provider within {@link
  * #scope()} that is in <b>weak-reference</b> state, that provider transitions to <b>cleared</b>
  * state.
  *
- * <p><img src="doc-files/ReleasableReferenceManager-statemachine.png">
+ * <p><img src="doc-files/ReleasableReferenceManager-statemachine.png"
+ * alt="ReleasableReferenceManager state machine">
  *
  * <p>This interface is implemented by Dagger.
  *
