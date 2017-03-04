@@ -17,12 +17,17 @@
 
 package(default_visibility = ["//:src"])
 
-load("//:build_defs.bzl", "JAVA_6_SOURCE_LEVEL", "PRE_JAVA_8_INFERENCE_OPTS")
+load("//:build_defs.bzl", "SOURCE_7_TARGET_7", "PRE_JAVA_8_INFERENCE_OPTS")
+
+filegroup(
+    name = "support-srcs",
+    srcs = glob(["*.java"]),
+)
 
 android_library(
     name = "support",
     srcs = glob(["*.java"]),
-    javacopts = PRE_JAVA_8_INFERENCE_OPTS + JAVA_6_SOURCE_LEVEL,
+    javacopts = PRE_JAVA_8_INFERENCE_OPTS + SOURCE_7_TARGET_7,
     manifest = "AndroidManifest.xml",
     deps = [
         "//:dagger_with_compiler",
@@ -31,4 +36,14 @@ android_library(
         "@androidsdk//com.android.support:support-annotations-25.0.0",
         "@androidsdk//com.android.support:support-v4-25.0.0",
     ],
+)
+
+load("//tools:javadoc.bzl", "javadoc_library")
+
+javadoc_library(
+    name = "support-javadoc",
+    srcs = [":support-srcs"],
+    android_api_level = 25,
+    root_packages = ["dagger.android.support"],
+    deps = [":support"],
 )
