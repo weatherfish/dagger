@@ -10,9 +10,14 @@ key=$1
 version_name=$2
 shift 2
 
-if [[ ! $version_name =~ ^2\. ]]; then
+if [[ ! "$version_name" =~ ^2\. ]]; then
   echo 'Version name must begin with "2."'
   exit 2
+fi
+
+if [[ "$version_name" =~ " " ]]; then
+  echo "Version name must not have any spaces"
+  exit 3
 fi
 
 #validate key
@@ -37,6 +42,7 @@ git clone --quiet --branch gh-pages \
     https://github.com/google/dagger gh-pages > /dev/null
 cd gh-pages
 unzip ../bazel-genfiles/user-docs.jar -d api/$version_name
+rm -rf api/$version_name/META-INF/
 git add api/$version_name
 git commit -m "$version_name docs"
 git push origin gh-pages
